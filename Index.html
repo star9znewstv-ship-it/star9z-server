@@ -1,103 +1,11 @@
 <!DOCTYPE html>
-<html lang="ur">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STAR 9Z NEWS TV HD - Studio</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#000;color:#fff;font-family:Arial,sans-serif}
-.top{background:#0A2463;border-bottom:4px solid #FFC72C;padding:10px;text-align:center}
-.top h1{color:#FFC72C;font-size:22px}
-.top p{color:#fff;font-size:13px}
-.stage{position:relative;width:100%;max-width:900px;margin:10px auto;background:#000;aspect-ratio:16/9;overflow:hidden;border:3px solid #FFC72C}
-video{width:100%;height:100%;object-fit:cover;background:#000}
-.overlay{position:absolute;inset:0;pointer-events:none}
-.topbar{position:absolute;top:0;left:0;right:0;background:linear-gradient(90deg,#D00000,#0A2463);padding:6px 10px;font-weight:900;font-size:16px;text-align:center;text-shadow:1px 1px 2px #000}
-.logoL,.logoR{position:absolute;top:55px;width:52px;height:52px;border-radius:50%;border:3px solid #FFC72C;background:#0A2463;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;animation:spin 5s linear infinite}
-.logoL{left:10px}.logoR{right:10px}
-@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.s9z-box{position:absolute;right:12px;top:125px;width:150px;height:150px;background:#0A2463;border:4px solid #FFC72C;outline:2px solid #D00000;outline-offset:-7px;box-shadow:0 0 18px #FFC72C;text-align:center;overflow:hidden}
-.s9z-logo{width:68px;height:68px;border-radius:50%;border:3px solid #FFC72C;margin:7px auto 0;display:flex;align-items:center;justify-content:center;background:#D00000;font-weight:900;font-size:12px;animation:spin 5s linear infinite}
-.s9z-time{background:#000;color:#FFC72C;border:1px solid #FFC72C;margin:7px;padding:5px;font-weight:900;font-size:13px}
-.bottom{position:absolute;bottom:0;left:0;right:0}
-.break{background:#D00000;color:#fff;padding:6px;font-weight:900;white-space:nowrap;overflow:hidden}
-.break span{display:inline-block;animation:marq 12s linear infinite}
-@keyframes marq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
-.blue{background:#0A2463;color:#FFC72C;padding:5px;font-size:13px;text-align:center;font-weight:900}
-.controls{max-width:900px;margin:auto;padding:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-button{background:#FFC72C;color:#000;border:none;padding:10px 14px;font-weight:900;border-radius:8px}
-button.red{background:#D00000;color:#fff}
-input{padding:8px;width:100%;max-width:900px;display:block;margin:5px auto}
-a.down{background:#00C853;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-block}
-</style>
-</head>
-<body>
-<div class="top"><h1>STAR 9Z NEWS TV HD</h1><p>NEWS STUDIO - IFTIKHAR AHMAD</p></div>
-<input type="text" id="headline" value="بریکنگ نیوز : بڑی خبر آ رہی ہے">
-<input type="file" id="file" accept="video/*">
-<div class="stage" id="stage">
-<video id="vid" controls playsinline></video>
-<div class="overlay">
-<div class="topbar" id="topbar">STAR 9Z NEWS TV HD</div>
-<div class="logoL">9Z</div>
-<div class="logoR">9Z</div>
-<div class="s9z-box">
-<div class="s9z-logo">STAR<br>9Z</div>
-<div class="s9z-time" id="timeBox">00:00:00</div>
-</div>
-<div class="bottom">
-<div class="break"><span id="ticker">بریکنگ نیوز : STAR 9Z NEWS TV HD - تازہ ترین خبریں سب سے پہلے</span></div>
-<div class="blue">LAHORE | PAKISTAN | STAR 9Z NEWS</div>
-</div>
-</div>
-</div>
-<div class="controls">
-<button onclick="adjust()">ADJUST + CHECK + RECORD</button>
-<button class="red" onclick="stopRec()">STOP</button>
-<span id="dl"></span>
-</div>
+<html><head><meta charset="UTF-8"><title>STAR 9Z SERVER</title></head>
+<body style="background:#000;color:#FFC72C;text-align:center;font-family:Arial;padding:30px">
+<h2>STAR 9Z SERVER - ON ✅</h2>
+<p>Video Server Chal Raha Hai</p>
 <script>
-let rec,chunks=[];
-const vid=document.getElementById('vid');
-document.getElementById('file').addEventListener('change',e=>{
-  vid.src=URL.createObjectURL(e.target.files[0]);
-  vid.play();
-});
-document.getElementById('headline').addEventListener('input',e=>{
-  document.getElementById('topbar').innerText=e.target.value;
-  document.getElementById('ticker').innerText="بریکنگ نیوز : "+e.target.value;
-});
-function update(){
-  let d=new Date();
-  let box=document.getElementById('timeBox');
-  let s=Math.floor(Date.now()/2500)%3;
-  if(s==0) box.innerText=d.toLocaleTimeString("en-PK",{timeZone:"Asia/Karachi",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true});
-  else if(s==1) box.innerText=d.toLocaleDateString("ur-PK",{timeZone:"Asia/Karachi",weekday:"long"});
-  else box.innerText=d.toLocaleDateString("ur-PK",{timeZone:"Asia/Karachi",day:"numeric",month:"long",year:"numeric"});
-}
-setInterval(update,1000); update();
-function adjust(){
-  vid.play();
-  let stream=document.getElementById('stage').captureStream(30);
-  let audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  let src=audioCtx.createMediaElementSource(vid);
-  let dest=audioCtx.createMediaStreamDestination();
-  src.connect(dest); src.connect(audioCtx.destination);
-  let combined=new MediaStream([...stream.getVideoTracks(),...dest.stream.getAudioTracks()]);
-  rec=new MediaRecorder(combined,{mimeType:'video/webm'});
-  chunks=[];
-  rec.ondataavailable=e=>chunks.push(e.data);
-  rec.onstop=()=>{
-    let blob=new Blob(chunks,{type:'video/webm'});
-    let url=URL.createObjectURL(blob);
-    document.getElementById('dl').innerHTML='<a class="down" href="'+url+'" download="star9z-studio.webm">DOWNLOAD VIDEO</a>';
-  };
-  rec.start();
-  alert("ریکارڈنگ شروع ہو گئی ہے - اسٹوڈیو تیار ہے");
-}
-function stopRec(){ if(rec) rec.stop(); }
+var u=new URLSearchParams(location.search).get("url");
+if(u){ location.replace(u); }
+else{ document.write("<p>Server Ready - ?url= lagao</p>"); }
 </script>
-</body>
-</html>
-
+</body></html>
